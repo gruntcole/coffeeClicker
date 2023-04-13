@@ -13,6 +13,7 @@ const data = window.data;
 
 function updateCoffeeView(coffeeQty) {
   // Create a reference to the element who's ID is 'coffee_counter'
+  const coffeeCounter = document.getElementById("coffee_counter")
   // Set the innerText of that element to be the coffeeQty passed into this function
 }
 
