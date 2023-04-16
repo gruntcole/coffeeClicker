@@ -18,41 +18,46 @@ function updateCoffeeView(coffeeQty) {
   const coffeeCounter = document.getElementById("coffee_counter");
   // Set the innerText of that element to be the coffeeQty passed into this function
   coffeeCounter.innerText = coffeeQty;
-};
+}
 
 function clickCoffee(data) {
   // Increment the data object's (passed into this function) coffee property by one
-  const clickCoffee = data.coffee++;
+  data.coffee++;
   // call the updateCoffeeView function and pass it the newly updated data.coffee property
   updateCoffeeView(data.coffee);
   // call the renderProducers function and pass it the data object
   renderProducers(data);
-};
+}
 
 /**************
  *   SLICE 2
  **************/
 
 function unlockProducers(producers, coffeeCount) {
-  // loop through the producers array passed into the function
-  for(let i= 0; i<producers.length;i++) {
-    if(coffeeCount >= producers[i].price/2) {
-      producers[i].unlocked = true;
+     // maybe is working?//is not//its working
+    
+  //const producersLength = Object.keys(data.producers).length;
+  //  for (const key in producers) 
+  for(let i= 0; i < producers.length; i++) 
+  {
+    if(coffeeCount >= producers[i].price / 2) {
+     producers[i].unlocked = true;
     }
-    // set else false if all producers are unlocked when finished
+    }
   }
-  // for each producer, if the coffeeCount (passed in) is greater than or equal
-  // to half the producer's price, reassign the producers.unlocked property to equal true
-}
+
+
+  // loop through the producers array passed into the function for each producer, if the coffeeCount (passed in) is greater than or equal to half the producer's price, reassign the producers.unlocked property to equal true
 
 function getUnlockedProducers(data) {
-
-  Array.prototype.filter()
+  return data.producers.filter((producer) => {
+    return producer.unlocked;
+  });
+  //Array.prototype.filter(unlockProducers)
 // should filter out just the unlocked producers, if filter works
+//maybe is working// is not// is??
 
-  // use the Array.prototype.filter() method
-  // filter through the data.producers property, and return an array with only the producers whose
-  // unlocked property is true
+  // use the Array.prototype.filter() method to filter through the data.producers property, and return an array with only the producers whose unlocked property is true
 }
 
 // You do not need to edit this function
@@ -93,7 +98,7 @@ function deleteAllChildNodes(parent) {
 
 function renderProducers(data) {
   // call the unlockProducers function and pass it data.producers and data.coffee
-  unlockProducers(data.producers, data.coffee)
+  unlockProducers(data.producers, data.coffee);
   // make a reference to the DOM element whose ID is producer_container
   const producerContainer = document.getElementById("producer_container");
   // call the deleteAllChildNodes function and pass it the above producerContainer element
@@ -163,20 +168,19 @@ function tick(data) {
   // increment the data object's (passed into this function) coffee property by the data.totalCPS amount
   data.coffee += data.totalCPS;
   // call the updateCoffeeView function and pass it the data.coffee property
-  updateCoffeeView(data.coffee)
+  updateCoffeeView(data.coffee);
   // call the renderProducers function and pass it the newly updated data object
   renderProducers(data);
 }
 
 // Event Listeners
-bigCoffee.addEventListener("click", clickCoffee(data))
-// add a 'click' event listener to the bigCoffee element (that you referenced above)
-// the event listener should call the clickCoffee function, and pass in the global data object
-bigCoffee.addEventListener("click", buyButtonClick(data))
+bigCoffee.addEventListener("click", () => clickCoffee(data));
+// add a 'click' event listener to the bigCoffee element (that you referenced above) the event listener should call the clickCoffee function, and pass in the global data object
+
+producerContainer.addEventListener("click", () => buyButtonClick(event, data));
 //unsure what element it is refering to
 
-// add a 'click' event listener to the element (referenced at the top of the file)
-// the event listener should call the buyButtonClick function and pass it the event, and the global data object
+// add a 'click' event listener to the element (referenced at the top of the file) the event listener should call the buyButtonClick function and pass it the event, and the global data object
 
 // You do not need to edit this last line. This simple runs your tick function every 1000ms, or 1s
 setInterval(() => tick(data), 1000);
